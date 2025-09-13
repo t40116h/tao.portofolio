@@ -8,12 +8,24 @@
   align-items: center;
   justify-content: center;
   background: $color-background;
+  padding: $spacing-lg;
+
+  @include mobile {
+    padding: $spacing-md;
+    min-height: 80vh;
+  }
 }
 
 .content {
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
+
+  @include mobile {
+    max-width: 100%;
+    padding: 0 $spacing-sm;
+  }
 }
 
 .title {
@@ -22,9 +34,11 @@
   font-weight: $font-weight-light;
   margin-bottom: $spacing-sm;
   color: $color-text-light;
+  line-height: 1;
 
   @include mobile {
-    font-size: 6rem;
+    font-size: 5rem;
+    margin-bottom: $spacing-xs;
   }
 }
 
@@ -32,12 +46,24 @@
   @include heading-2;
   margin-bottom: $spacing-md;
   color: $color-text;
+
+  @include mobile {
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-lg;
+  }
 }
 
 .description {
   @include body-text-large;
   color: $color-text-light;
   margin-bottom: $spacing-xl;
+  line-height: 1.5;
+
+  @include mobile {
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-base;
+    padding: 0 $spacing-sm;
+  }
 }
 
 .homeLink {
@@ -48,9 +74,19 @@
   font-size: $font-size-base;
   position: relative;
   transition: color $transition-fast;
+  display: inline-block;
+  padding: $spacing-sm $spacing-lg;
+  border: 1px solid $color-text;
+  border-radius: $border-radius-sm;
+
+  @include mobile {
+    font-size: $font-size-sm;
+    padding: $spacing-xs $spacing-md;
+  }
 
   &:hover {
-    color: $color-text-light;
+    color: $color-background;
+    background-color: $color-text;
   }
 
   &::after {
