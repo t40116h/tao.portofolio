@@ -42,36 +42,11 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState({ isSubmitting: true, isSuccess: false, error: null });
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setFormState({ isSubmitting: false, isSuccess: true, error: null });
-        setFormData({ name: '', email: '', subject: '', message: '', phone: '' });
-      } else {
-        setFormState({
-          isSubmitting: false,
-          isSuccess: false,
-          error: result.error || 'Something went wrong. Please try again.'
-        });
-      }
-    } catch {
-      setFormState({
-        isSubmitting: false,
-        isSuccess: false,
-        error: 'Network error. Please check your connection and try again.'
-      });
-    }
+    setFormState({
+      isSubmitting: false,
+      isSuccess: false,
+      error: 'Contact form is temporarily disabled. Please use social media or email to reach me.'
+    });
   };
 
   return (
@@ -100,7 +75,7 @@ export default function ContactPage() {
             value={formData.name}
             onChange={handleInputChange}
             required
-            disabled={formState.isSubmitting}
+            disabled={true}
           />
 
           <input
@@ -111,7 +86,7 @@ export default function ContactPage() {
             value={formData.email}
             onChange={handleInputChange}
             required
-            disabled={formState.isSubmitting}
+            disabled={true}
           />
 
           <input
@@ -122,7 +97,7 @@ export default function ContactPage() {
             value={formData.subject}
             onChange={handleInputChange}
             required
-            disabled={formState.isSubmitting}
+            disabled={true}
           />
 
           <input
@@ -132,7 +107,7 @@ export default function ContactPage() {
             className={styles.formInput}
             value={formData.phone}
             onChange={handleInputChange}
-            disabled={formState.isSubmitting}
+            disabled={true}
           />
 
           <textarea
@@ -143,16 +118,16 @@ export default function ContactPage() {
             value={formData.message}
             onChange={handleInputChange}
             required
-            disabled={formState.isSubmitting}
+            disabled={true}
           />
 
           <div className={styles.formActions}>
             <button
               type="submit"
               className={styles.formButton}
-              disabled={formState.isSubmitting}
+              disabled={true}
             >
-              {formState.isSubmitting ? 'Sending...' : 'Send'}
+              Contact Form Disabled
             </button>
 
             <a href="/social" className={styles.socialButton}>
