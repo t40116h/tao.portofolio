@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { ScrambleText } from '@/components/ui/scrambletext';
+import Link from 'next/link';
 import styles from './footer.module.scss';
 
 export default function Footer() {
@@ -17,7 +17,8 @@ export default function Footer() {
           </div>
           <div className={styles.footerCenter}>
             <p className={styles.footerCopyright}>
-              © 2024 <span className={styles.footerName}>Taopik Hidayat</span>. All rights reserved.
+              © 2024 <span className={styles.footerName}>Taopik Hidayat</span>.<br className={styles.mobileBreak} />
+              <span className={styles.rightsText}>All rights reserved.</span>
             </p>
           </div>
           <div className={styles.footerRight}>

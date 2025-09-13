@@ -96,10 +96,13 @@
   @include mobile {
     font-size: $font-size-sm;
     margin-bottom: 0;
-    max-width: 300px;
+    max-width: 320px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 $spacing-sm;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 }
 
@@ -107,6 +110,21 @@
   font-family: $font-primary;
   font-weight: $font-weight-medium;
   color: $color-text;
+}
+
+.mobileBreak {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
+}
+
+.rightsText {
+  @include mobile {
+    display: block;
+    margin-top: 2px;
+  }
 }
 
 .footerRight {
