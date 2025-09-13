@@ -322,7 +322,7 @@
   background-color: $color-background-alt;
 }
 
-// Responsive Utilities
+// Professional Responsive Utilities - Mobile-First Approach
 @include mobile {
   .mobile-hidden {
     display: none;
@@ -334,6 +334,28 @@
 
   .mobile-flex {
     display: flex;
+  }
+
+  .mobile-grid {
+    display: grid;
+  }
+}
+
+@include tablet {
+  .tablet-hidden {
+    display: none;
+  }
+
+  .tablet-block {
+    display: block;
+  }
+
+  .tablet-flex {
+    display: flex;
+  }
+
+  .tablet-grid {
+    display: grid;
   }
 }
 
@@ -348,5 +370,137 @@
 
   .desktop-flex {
     display: flex;
+  }
+
+  .desktop-grid {
+    display: grid;
+  }
+}
+
+@include large-desktop {
+  .large-desktop-hidden {
+    display: none;
+  }
+
+  .large-desktop-block {
+    display: block;
+  }
+
+  .large-desktop-flex {
+    display: flex;
+  }
+
+  .large-desktop-grid {
+    display: grid;
+  }
+}
+
+// Fluid Typography Utilities
+.fluid-text-sm {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.fluid-text-base {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+}
+
+.fluid-text-lg {
+  font-size: clamp(1.125rem, 3vw, 1.25rem);
+}
+
+.fluid-text-xl {
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+.fluid-text-2xl {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.fluid-text-3xl {
+  font-size: clamp(2rem, 6vw, 2.5rem);
+}
+
+// Responsive Container Utilities
+.container-sm {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 $spacing-sm;
+}
+
+.container-md {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 $spacing-sm;
+}
+
+.container-lg {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 $spacing-sm;
+}
+
+.container-xl {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $spacing-sm;
+}
+
+.container-2xl {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 $spacing-sm;
+}
+
+// Aspect Ratio Utilities
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.aspect-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+// Flexible Height Utilities (Content-Determined)
+.h-content {
+  height: auto;
+  min-height: fit-content;
+}
+
+.h-viewport {
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+// Professional Grid Breakpoint Utilities
+.grid-responsive-1 {
+  grid-template-columns: 1fr;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-responsive-2 {
+  grid-template-columns: 1fr;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include large-desktop {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

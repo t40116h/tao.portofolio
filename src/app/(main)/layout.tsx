@@ -11,9 +11,7 @@ export default function MainLayout({
     <div className={styles.page}>
       <Header />
       <main className={styles.main}>
-        <div className="container">
-          {children}
-        </div>
+        {children}  {/* Let children control their own container */}
       </main>
       <Footer />
     </div>

@@ -1,15 +1,27 @@
 @use './variables' as *;
 @use './mixins' as *;
 
-// Layout Grid System
-// Professional grid system for consistent layouts
-
-// Container
+/*
+  =============================================================
+  THE ONLY CONTAINER YOU NEED FOR MAIN LAYOUT ALIGNMENT
+  This is the single source of truth for your layout.
+  =============================================================
+*/
 .container {
-  @include container;
+  width: 100%;                  // Always take up 100% of the parent's width.
+  max-width: 1280px;            // Set a maximum width for large screens (sesuaikan jika perlu).
+  margin-left: auto;            // These two lines are the magic for centering.
+  margin-right: auto;
 
+  // Padding for "breathing room" on the sides.
+  // This ensures content never touches the screen edges on mobile.
+  padding-left: $spacing-md;    // e.g., 24px
+  padding-right: $spacing-md;   // e.g., 24px
+
+  // On smaller screens, the padding can be smaller.
   @include mobile {
-    padding: 0 $spacing-sm;
+    padding-left: $spacing-sm;  // e.g., 16px
+    padding-right: $spacing-sm; // e.g., 16px
   }
 }
 
@@ -155,16 +167,7 @@
   padding: $spacing-lg;
 }
 
-// Content Layout
-.content-layout {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
-
-  @include mobile {
-    padding: 0 $spacing-sm;
-  }
-}
+// Removed .content-layout - now using .container as single source of truth
 
 // Section Layout
 .section-layout {

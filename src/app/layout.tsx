@@ -1,13 +1,13 @@
 import DevBadge from "@/components/ui/dev-badge";
+import { AUTHOR, SITE_CONFIG } from "@/constants/site";
 import { khInterference, ppFraktionMono } from "@/lib/fonts";
 import "@/styles/globals.scss";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "Taopik Hidayat - Portfolio",
-  description: "Personal portfolio website of Taopik Hidayat - Developer exploring AI and Web3 technologies",
-  keywords: ["taopikhidayat", "portfolio", "web development", "AI", "Web3", "developer"],
-  authors: [{ name: "Taopik Hidayat" }],
+  title: SITE_CONFIG.title,
+  description: SITE_CONFIG.description,
+  authors: [{ name: AUTHOR.name }],
 };
 
 export const viewport: Viewport = {

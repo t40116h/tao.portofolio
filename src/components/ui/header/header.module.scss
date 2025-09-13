@@ -7,10 +7,17 @@
   background: $color-background;
   position: static;
   width: 100%;
-  padding: $spacing-md 0;
+  min-height: 5rem; // 80px - match footer height
+
+  // Add breathing room - prevent header from sticking to top of browser
+  padding-top: $spacing-lg;    // 24px - top breathing room
+  padding-bottom: $spacing-lg; // 24px - bottom breathing room
+  // Horizontal padding is 0 because .container handles it
 
   @include mobile {
-    padding: $spacing-sm 0;
+    min-height: 3.75rem; // 60px - match footer height
+    padding-top: $spacing-md;    // 16px - smaller breathing room on mobile
+    padding-bottom: $spacing-md; // 16px - smaller breathing room on mobile
   }
 }
 
@@ -24,10 +31,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-sm $container-padding;
-  max-width: $container-max-width;
-  margin: 0 auto;
   width: 100%;
+  min-height: inherit; // Ensure nav takes full height from header
 
   // Mobile Menu Button
   .mobileMenuButton {
@@ -41,7 +46,7 @@
     font-weight: $font-weight-medium;
     color: $color-text;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: $letter-spacing-wider;
     transition: color $transition-fast;
 
     &:hover {
@@ -53,7 +58,17 @@
     }
 
     @include mobile {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%; // Match parent container height
+      line-height: 1; // Ensure consistent line height
+
+      // Override ScrambleText mobile styles that cause misalignment
+      span {
+        padding: 0 !important;
+        min-height: auto !important;
+      }
     }
   }
 
@@ -63,6 +78,7 @@
     justify-content: space-between;
     gap: 0;
     padding: $spacing-xs $container-padding;
+    min-height: inherit; // Match header's mobile min-height for consistency
   }
 }
 
@@ -70,13 +86,16 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  width: 120px; // Fixed width to ensure consistent centering
+  width: 120px; // Fixed width (7.5rem) - using px for precise logo alignment
+  height: 100%; // Match parent container height for perfect alignment
 
   .logoLink {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     text-decoration: none;
     transition: opacity $transition-fast;
+    height: 100%; // Ensure full height utilization
 
     &:hover {
       opacity: 0.7;
@@ -84,10 +103,12 @@
   }
 
   .logoIcon {
-    width: 24px;
-    height: 24px;
+    width: $font-size-xl; // 24px - consistent with design tokens
+    height: $font-size-xl; // 24px - consistent with design tokens
     color: $color-text;
     display: block;
+    flex-shrink: 0;
+    line-height: 1; // Ensure consistent line height for SVG alignment
   }
 }
 
@@ -129,19 +150,7 @@
       color: $color-text-light;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background-color: $color-text;
-    }
-
-    &:hover::after {
-      width: 100%;
-    }
+    // Hover line effects removed
   }
 }
 
@@ -149,7 +158,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  width: 120px; // Fixed width to match logo and ensure symmetric centering
+  width: 120px; // Fixed width (7.5rem) - match logo width for symmetric centering
   justify-content: flex-end;
 
   @include mobile {
@@ -172,19 +181,7 @@
     color: $color-text-light;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: $color-text;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
+  // Hover line effects removed
 }
 
 // Mobile Menu Overlay
@@ -265,20 +262,7 @@
     outline: none;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: $color-text;
-    transition: width $transition-fast;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
+  // Hover line effects removed
 
   // Responsive adjustments
   @media (max-width: 480px) {
@@ -342,21 +326,7 @@
       outline: none;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 1px;
-      background-color: $color-text;
-      transition: width $transition-fast;
-    }
-
-    &:hover::after {
-      width: 50%;
-    }
+    // Hover line effects removed
 
     // Responsive adjustments for smaller screens
     @media (max-width: 480px) {
@@ -397,20 +367,7 @@
     outline: none;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: $color-text;
-    transition: width $transition-fast;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
+  // Hover line effects removed
 
   // Responsive adjustments
   @media (max-width: 480px) {

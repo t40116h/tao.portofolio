@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef } from 'react';
 interface ScrambleOptions {
   speed?: number;
   revealSpeed?: number;
+  onComplete?: () => void;
 }
 
 export function useScramble(
@@ -65,11 +66,15 @@ export function useScramble(
       } else {
         onScramble(originalText);
         animationFrameRef.current = null;
+        // Call completion callback if provided
+        if (options.onComplete) {
+          options.onComplete();
+        }
       }
     };
 
     animationFrameRef.current = requestAnimationFrame(animate);
-  }, [originalText, onScramble, durationMs, stepMs]);
+  }, [originalText, onScramble, durationMs, stepMs, options]);
 
   const stopScramble = useCallback(() => {
     if (animationFrameRef.current) {

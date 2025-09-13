@@ -1,35 +1,20 @@
 'use client';
 
+import {
+  CONTACT_FORM_CONFIG,
+  CONTACT_INFO,
+  ContactFormData
+} from '@/constants/contact';
 import { useState } from 'react';
 import styles from './contact.module.scss';
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  phone?: string;
-}
-
-interface FormState {
-  isSubmitting: boolean;
-  isSuccess: boolean;
-  error: string | null;
-}
-
 export default function ContactPage() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
     subject: '',
     message: '',
     phone: '',
-  });
-
-  const [formState, setFormState] = useState<FormState>({
-    isSubmitting: false,
-    isSuccess: false,
-    error: null,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,104 +27,84 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState({
-      isSubmitting: false,
-      isSuccess: false,
-      error: 'Contact form is temporarily disabled. Please use social media or email to reach me.'
-    });
+    // TODO: Implement form submission
   };
 
   return (
-    <section className={styles.contactSection}>
-      <div className={styles.contactContent}>
-        <h1 className={styles.contactTitle}>Contact</h1>
-
-        {formState.isSuccess && (
-          <div className={styles.successMessage}>
-            <p>Thank you for your message! I&apos;ll get back to you within 24 hours.</p>
-          </div>
-        )}
-
-        {formState.error && (
-          <div className={styles.errorMessage}>
-            <p>{formState.error}</p>
-          </div>
-        )}
+    <div className="container">
+      <section className={styles.contactSection}>
+        <div className={styles.contactContent}>
+          <h1 className={styles.contactTitle}>{CONTACT_INFO.title}</h1>
 
         <form className={styles.contactForm} onSubmit={handleSubmit}>
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder={CONTACT_FORM_CONFIG.fields.name.placeholder}
             className={styles.formInput}
             value={formData.name}
             onChange={handleInputChange}
             required
-            disabled={true}
           />
 
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder={CONTACT_FORM_CONFIG.fields.email.placeholder}
             className={styles.formInput}
             value={formData.email}
             onChange={handleInputChange}
             required
-            disabled={true}
           />
 
           <input
             type="text"
             name="subject"
-            placeholder="Subject"
+            placeholder={CONTACT_FORM_CONFIG.fields.subject.placeholder}
             className={styles.formInput}
             value={formData.subject}
             onChange={handleInputChange}
             required
-            disabled={true}
           />
 
           <input
             type="tel"
             name="phone"
-            placeholder="Phone (optional)"
+            placeholder={CONTACT_FORM_CONFIG.fields.phone.placeholder}
             className={styles.formInput}
             value={formData.phone}
             onChange={handleInputChange}
-            disabled={true}
           />
 
           <textarea
             name="message"
-            placeholder="Message"
+            placeholder={CONTACT_FORM_CONFIG.fields.message.placeholder}
             className={styles.formTextarea}
             rows={4}
             value={formData.message}
             onChange={handleInputChange}
             required
-            disabled={true}
           />
 
           <div className={styles.formActions}>
             <button
               type="submit"
               className={styles.formButton}
-              disabled={true}
             >
-              Contact Form Disabled
+              {CONTACT_INFO.callToAction.primary}
             </button>
 
             <a href="/social" className={styles.socialButton}>
-              Social
+              {CONTACT_INFO.callToAction.secondary}
             </a>
           </div>
         </form>
 
         <div className={styles.contactNote}>
-          <p>I usually respond within 24 hours.</p>
+          <p>{CONTACT_INFO.availability.responseTime}</p>
         </div>
       </div>
     </section>
+    </div>
   );
 }

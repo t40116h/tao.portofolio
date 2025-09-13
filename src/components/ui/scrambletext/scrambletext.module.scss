@@ -6,6 +6,15 @@
   position: relative;
   cursor: pointer;
   user-select: none;
+
+  // Better touch target for mobile
+  @media (max-width: 768px) {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+  }
 }
 
 // Placeholder text (invisible but maintains layout)

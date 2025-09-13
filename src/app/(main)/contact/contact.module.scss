@@ -139,6 +139,18 @@
   }
 }
 
+.formButton {
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      background: transparent;
+      color: $color-text;
+    }
+  }
+}
+
 .socialButton {
   border-style: dashed;
 
@@ -161,4 +173,47 @@
     margin: 0;
     line-height: 1.5;
   }
+}
+
+.notImplementedMessage {
+  margin-top: $spacing-lg;
+  padding: $spacing-md;
+  background: rgba($color-text, 0.05);
+  border: 1px dashed $color-text-light;
+  border-radius: 4px;
+  text-align: center;
+
+  p {
+    @include body-text;
+    color: $color-text-light;
+    font-size: $font-size-sm;
+    margin: 0;
+    font-style: italic;
+  }
+}
+
+.successMessage,
+.errorMessage {
+  margin-bottom: $spacing-lg;
+  padding: $spacing-md;
+  border-radius: 4px;
+  text-align: center;
+
+  p {
+    @include body-text;
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+}
+
+.successMessage {
+  background: rgba(#10b981, 0.1);
+  border: 1px solid rgba(#10b981, 0.3);
+  color: #10b981;
+}
+
+.errorMessage {
+  background: rgba(#ef4444, 0.1);
+  border: 1px solid rgba(#ef4444, 0.3);
+  color: #ef4444;
 }

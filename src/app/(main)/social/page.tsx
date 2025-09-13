@@ -1,37 +1,5 @@
+import { SOCIAL_PLATFORMS } from '@/constants/social';
 import styles from './social.module.scss';
-
-const socialPlatforms = [
-  {
-    name: 'GitHub',
-    icon: 'github',
-    url: 'https://github.com/T40116H'
-  },
-  {
-    name: 'LinkedIn',
-    icon: 'linkedin',
-    url: 'N/A'
-  },
-  {
-    name: 'X',
-    icon: 'x',
-    url: 'https://x.com/T40116H'
-  },
-  {
-    name: 'Instagram',
-    icon: 'instagram',
-    url: 'https://instagram.com/tao.labs'
-  },
-  {
-    name: 'Discord',
-    icon: 'discord',
-    url: 'N/A'
-  },
-  {
-    name: 'Telegram',
-    icon: 'telegram',
-    url: 'https://t.me/T40116H'
-  }
-];
 
 export default function SocialPage() {
   return (
@@ -40,7 +8,7 @@ export default function SocialPage() {
         <h1 className={styles.socialTitle}>Social</h1>
 
         <div className={styles.socialGrid}>
-          {socialPlatforms.map((platform) => {
+          {SOCIAL_PLATFORMS.map((platform) => {
             const isNA = platform.url === 'N/A';
 
             return isNA ? (

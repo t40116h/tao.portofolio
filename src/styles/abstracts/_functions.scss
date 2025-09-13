@@ -60,3 +60,41 @@
 
   @return map-get($max-widths, $breakpoint);
 }
+
+// Spacing helper function - get spacing token by scale
+@function spacing($scale) {
+  $spacing-map: (
+    'xs': 4px,
+    'sm': 8px,
+    'md': 16px,
+    'lg': 24px,
+    'xl': 32px,
+    '2xl': 48px,
+    '3xl': 64px,
+  );
+
+  @return map-get($spacing-map, $scale);
+}
+
+// Design token helper - convert common values to design tokens
+@function design-token($type, $value) {
+  @if $type == 'spacing' {
+    @return spacing($value);
+  } @else if $type == 'color' {
+    $color-map: (
+      'primary': #000000,
+      'secondary': #ffffff,
+      'text': #000000,
+      'text-light': #666666,
+      'text-muted': #999999,
+      'background': #ffffff,
+      'background-alt': #f8f8f8,
+      'border': #e0e0e0,
+      'border-light': #f0f0f0,
+    );
+    @return map-get($color-map, $value);
+  } @else {
+    @warn 'Unknown design token type: #{$type}';
+    @return null;
+  }
+}

@@ -121,9 +121,8 @@ p {
   @include visually-hidden;
 }
 
-.container {
-  @include container;
-}
+// Container class is now defined in _layout-grid.scss as the single source of truth
+// Removed conflicting @include container to prevent CSS conflicts
 
 .flex-center {
   @include flex-center;

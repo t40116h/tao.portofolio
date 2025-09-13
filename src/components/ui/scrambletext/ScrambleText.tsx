@@ -13,6 +13,7 @@ type ScrambleTextProps = {
   scrambleSpeed?: number;
   revealSpeed?: number;
   flashClassName?: string;
+  onScrambleComplete?: () => void;
 };
 
 export function ScrambleText({
@@ -24,12 +25,18 @@ export function ScrambleText({
   scrambleSpeed,
   revealSpeed,
   flashClassName,
+  onScrambleComplete,
 }: ScrambleTextProps) {
   const [text, setText] = useState(children);
   const onScramble = useCallback((t: string) => setText(t), []);
+
+  // Mobile detection - hydration safe
+  const [isMobile, setIsMobile] = useState(false);
+
   const { scramble, stopScramble } = useScramble(children, onScramble, {
-    speed: scrambleSpeed,
-    revealSpeed: revealSpeed,
+    speed: scrambleSpeed || (isMobile ? 150 : 200),
+    revealSpeed: revealSpeed || (isMobile ? 20 : 30),
+    onComplete: onScrambleComplete,
   });
 
   // Keep internal text in sync if the source children changes (e.g., theme label cycles)
@@ -44,12 +51,7 @@ export function ScrambleText({
     }
   }, [shouldScramble, scramble]);
 
-  // Mobile detection - hydration safe
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -59,17 +61,10 @@ export function ScrambleText({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Enhanced scramble with mobile delay - only apply after hydration
+  // Instant scramble for better responsiveness
   const handleScramble = useCallback(() => {
-    if (mounted && isMobile) {
-      // Add delay for mobile to make scramble more visible
-      setTimeout(() => {
-        scramble();
-      }, 150);
-    } else {
-      scramble();
-    }
-  }, [mounted, isMobile, scramble]);
+    scramble();
+  }, [scramble]);
 
   const Comp = as as keyof React.JSX.IntrinsicElements;
   return (
@@ -83,6 +78,16 @@ export function ScrambleText({
       }}
       onMouseEnter={handleScramble}
       onMouseLeave={stopScramble}
+      onTouchStart={handleScramble}
+      onTouchEnd={stopScramble}
+      onClick={(e) => {
+        // Don't stop scramble on click if it's a button or link
+        if (e.currentTarget.tagName === 'BUTTON' || e.currentTarget.tagName === 'A') {
+          // Let the parent handle the click
+          return;
+        }
+        stopScramble();
+      }}
       aria-label={text}
     >
       <span className={styles.placeholder} aria-hidden>

@@ -1,22 +1,25 @@
 import { AnimatedBrandIcon } from '@/components/ui/badge';
+import { ABOUT_CONTENT } from '@/constants/about';
 import styles from './about.module.scss';
 
 export default function AboutPage() {
   return (
-    <section className={styles.aboutSection}>
-      <div className={styles.aboutContent}>
-        <h1 className={styles.aboutTitle}>About</h1>
+    <div className="container">
+      <section className={styles.aboutSection}>
+        <div className={styles.aboutContent}>
+          <h1 className={styles.aboutTitle}>{ABOUT_CONTENT.title}</h1>
 
-        <div className={styles.badgeContainer}>
-          <AnimatedBrandIcon />
-        </div>
+          <div className={styles.badgeContainer}>
+            <AnimatedBrandIcon />
+          </div>
 
-        <div className={styles.aboutText}>
-          <p>I&apos;m a developer exploring the evolving landscape of technology with curiosity and care. My journey involves continuous learning and experimentation, always seeking to understand how these tools can create meaningful solutions.</p>
-          <p>I approach technology with humility, recognizing that the field is constantly evolving. When I&apos;m not coding, you&apos;ll find me exploring new concepts or enjoying a thoughtful moment while pondering the next challenge.</p>
-          <p>Based in Ciamis, West Java, Indonesia.</p>
+          <div className={styles.aboutText}>
+            {ABOUT_CONTENT.description.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

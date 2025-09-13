@@ -1,16 +1,16 @@
 import localFont from 'next/font/local';
 
 // KH Interference - Modern, sophisticated sans-serif for headings and UI
-// Professional typography system designed for Awwwards-winning websites
+// Professional typography system designed for Awwards-winning websites
 export const khInterference = localFont({
   src: [
     {
-      path: '../fonts/kh-interference/KHInterference-Light.woff2',
+      path: '../../public/fonts/kh-interference/KHInterference-Light.woff2',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../fonts/kh-interference/KHInterference-Regular.woff2',
+      path: '../../public/fonts/kh-interference/KHInterference-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
@@ -26,7 +26,7 @@ export const khInterference = localFont({
 export const ppFraktionMono = localFont({
   src: [
     {
-      path: '../fonts/pp-fraktion/PPFraktionMono-Regular.woff2',
+      path: '../../public/fonts/pp-fraktion/PPFraktionMono-Regular.woff2',
       weight: '400',
       style: 'normal',
     },

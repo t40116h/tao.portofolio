@@ -1,137 +1,16 @@
+import { PROJECT_CATEGORIES } from '@/constants/projects';
 import styles from './projects.module.scss';
-
-const projectCategories = [
-  {
-    name: 'Account Abstraction',
-    type: 'infra',
-    description: 'Smart contract wallets and account management'
-  },
-  {
-    name: 'Analytics',
-    type: 'infra',
-    description: 'Data analysis and blockchain insights'
-  },
-  {
-    name: 'Cross-Chain',
-    type: 'infra',
-    description: 'Interoperability between blockchains'
-  },
-  {
-    name: 'Dev Tooling',
-    type: 'infra',
-    description: 'Developer tools and frameworks'
-  },
-  {
-    name: 'Gaming Infra',
-    type: 'infra',
-    description: 'Infrastructure for gaming applications'
-  },
-  {
-    name: 'Identity',
-    type: 'infra',
-    description: 'Digital identity and verification'
-  },
-  {
-    name: 'Indexer',
-    type: 'infra',
-    description: 'Blockchain data indexing'
-  },
-  {
-    name: 'Onramp',
-    type: 'infra',
-    description: 'Fiat to crypto conversion'
-  },
-  {
-    name: 'Oracle',
-    type: 'infra',
-    description: 'Real-world data for smart contracts'
-  },
-  {
-    name: 'Privacy',
-    type: 'infra',
-    description: 'Privacy-preserving technologies'
-  },
-  {
-    name: 'RPC',
-    type: 'infra',
-    description: 'Remote procedure calls for blockchains'
-  },
-  {
-    name: 'Stablecoin',
-    type: 'infra',
-    description: 'Stable digital currencies'
-  },
-  {
-    name: 'Wallet',
-    type: 'infra',
-    description: 'Cryptocurrency wallet solutions'
-  },
-  {
-    name: 'Zero-Knowledge',
-    type: 'infra',
-    description: 'Privacy through zero-knowledge proofs'
-  },
-  {
-    name: 'AI',
-    type: 'app',
-    description: 'Artificial intelligence applications'
-  },
-  {
-    name: 'DeFi',
-    type: 'app',
-    description: 'Decentralized finance protocols'
-  },
-  {
-    name: 'DePIN',
-    type: 'app',
-    description: 'Decentralized physical infrastructure'
-  },
-  {
-    name: 'Gaming',
-    type: 'app',
-    description: 'Blockchain gaming applications'
-  },
-  {
-    name: 'Governance',
-    type: 'app',
-    description: 'DAO and governance platforms'
-  },
-  {
-    name: 'NFT',
-    type: 'app',
-    description: 'Non-fungible token marketplaces'
-  },
-  {
-    name: 'Payments',
-    type: 'app',
-    description: 'Cryptocurrency payment solutions'
-  },
-  {
-    name: 'Prediction Market',
-    type: 'app',
-    description: 'Decentralized prediction markets'
-  },
-  {
-    name: 'RWA',
-    type: 'app',
-    description: 'Real world asset tokenization'
-  },
-  {
-    name: 'Social',
-    type: 'app',
-    description: 'Decentralized social networks'
-  }
-];
 
 export default function ProjectsPage() {
 
   return (
-    <section className={styles.projectsSection}>
-      <div className={styles.projectsContent}>
-        <h1 className={styles.projectsTitle}>Projects</h1>
+    <div className="container">
+      <section className={styles.projectsSection}>
+        <div className={styles.projectsContent}>
+          <h1 className={styles.projectsTitle}>Projects</h1>
 
         <div className={styles.projectsGrid}>
-          {projectCategories.map((category) => (
+          {PROJECT_CATEGORIES.map((category) => (
             <div
               key={category.name}
               className={styles.projectItem}
@@ -196,5 +75,6 @@ export default function ProjectsPage() {
         </div>
       </div>
     </section>
+    </div>
   );
 }

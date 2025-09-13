@@ -2,9 +2,10 @@ import styles from './articles.module.scss';
 
 export default function ArticlesPage() {
   return (
-    <section className={styles.articlesSection}>
-      <div className={styles.articlesContent}>
-        <h1 className={styles.articlesTitle}>Articles</h1>
+    <div className="container">
+      <section className={styles.articlesSection}>
+        <div className={styles.articlesContent}>
+          <h1 className={styles.articlesTitle}>Articles</h1>
 
         <div className={styles.articlesContainer}>
           <div className={styles.naBadge}>
@@ -17,5 +18,6 @@ export default function ArticlesPage() {
         </div>
       </div>
     </section>
+    </div>
   );
 }

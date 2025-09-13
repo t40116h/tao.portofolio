@@ -1,1 +1,1 @@
-export { ScrambleText } from './scrambletext';
+export { ScrambleText } from './ScrambleText';

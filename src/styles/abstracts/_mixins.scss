@@ -29,7 +29,13 @@
   place-items: center;
 }
 
-// Responsive Mixins
+// Responsive Mixins - Mobile-First Professional Approach
+@mixin small-mobile {
+  @media (max-width: #{$breakpoint-small-mobile - 1px}) {
+    @content;
+  }
+}
+
 @mixin mobile {
   @media (max-width: #{$breakpoint-mobile - 1px}) {
     @content;
@@ -37,6 +43,12 @@
 }
 
 @mixin tablet {
+  @media (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
   @media (min-width: $breakpoint-mobile) and (max-width: #{$breakpoint-tablet - 1px}) {
     @content;
   }
@@ -44,6 +56,18 @@
 
 @mixin desktop {
   @media (min-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: $breakpoint-tablet) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $breakpoint-desktop) {
     @content;
   }
 }
@@ -78,6 +102,197 @@
   &:hover {
     transform: translateY(-2px);
   }
+}
+
+// Grid Item Mixins
+@mixin grid-item-hover {
+  .borderTop,
+  .borderBottom,
+  .borderLeft,
+  .borderRight {
+    position: absolute;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+    background-color: $color-text;
+  }
+
+  .borderTop,
+  .borderBottom {
+    transform: scaleX(0);
+    width: 100%;
+    height: 1px;
+  }
+
+  .borderLeft,
+  .borderRight {
+    transform: scaleY(0);
+    width: 1px;
+    height: 100%;
+  }
+
+  .borderTop {
+    top: 0;
+    left: 0;
+    transform-origin: left;
+  }
+
+  .borderBottom {
+    right: 0;
+    bottom: 0;
+    transform-origin: right;
+  }
+
+  .borderLeft {
+    bottom: 0;
+    left: 0;
+    transform-origin: bottom;
+  }
+
+  .borderRight {
+    top: 0;
+    right: 0;
+    transform-origin: top;
+  }
+
+  &:hover,
+  &:focus-within {
+    .borderTop,
+    .borderBottom {
+      transform: scaleX(1);
+    }
+
+    .borderLeft,
+    .borderRight {
+      transform: scaleY(1);
+    }
+  }
+
+  @include mobile {
+    &:active {
+      .borderTop,
+      .borderBottom {
+        transform: scaleX(1);
+      }
+
+      .borderLeft,
+      .borderRight {
+        transform: scaleY(1);
+      }
+    }
+  }
+}
+
+@mixin grid-layout($columns: 3, $rows: 2, $mobile-columns: 2, $mobile-rows: 3) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  grid-template-rows: repeat($rows, 1fr);
+  gap: 1px;
+  border: 1px solid $color-border;
+  background-color: $color-border;
+  max-width: 100%;
+  overflow: hidden;
+
+  @include mobile {
+    grid-template-columns: repeat($mobile-columns, 1fr);
+    grid-template-rows: repeat($mobile-rows, 1fr);
+    gap: 0.5px;
+    margin: 0 $spacing-sm;
+  }
+}
+
+@mixin grid-item-base($min-height: 180px, $mobile-min-height: 140px) {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: $color-background;
+  aspect-ratio: 1 / 1;
+  min-height: $min-height;
+  overflow: hidden;
+  color: $color-text;
+
+  @include mobile {
+    min-height: $mobile-min-height;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@mixin content-transition {
+  .defaultContent,
+  .hoverContent {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  .defaultContent {
+    opacity: 1;
+  }
+
+  .hoverContent {
+    opacity: 0;
+  }
+
+  &:hover,
+  &:focus-within {
+    .defaultContent {
+      opacity: 0;
+    }
+
+    .hoverContent {
+      opacity: 1;
+    }
+  }
+
+  @include mobile {
+    &:active {
+      .defaultContent {
+        opacity: 0;
+      }
+
+      .hoverContent {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@mixin corner-element {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-width: 0;
+  z-index: 10;
+  max-width: 60%;
+}
+
+@mixin corner-arrow {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  color: $color-primary;
+  z-index: 10;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@mixin link-underline {
+  text-decoration: none;
+  display: block;
+  position: relative;
+  transition: color $transition-fast;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  // Hover line effects removed from link-underline mixin
 }
 
 // Animation Mixins
