@@ -4,7 +4,6 @@ export interface ContactFormData {
   email: string;
   subject: string;
   message: string;
-  phone?: string;
 }
 
 export interface ContactFormState {
@@ -33,12 +32,6 @@ export const CONTACT_FORM_CONFIG = {
       placeholder: 'Subject',
       type: 'text',
       required: true,
-    },
-    phone: {
-      label: 'Phone (Optional)',
-      placeholder: 'Phone',
-      type: 'tel',
-      required: false,
     },
     message: {
       label: 'Message',

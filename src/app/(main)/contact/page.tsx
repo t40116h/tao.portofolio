@@ -14,7 +14,6 @@ export default function ContactPage() {
     email: '',
     subject: '',
     message: '',
-    phone: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -65,15 +64,6 @@ export default function ContactPage() {
             value={formData.subject}
             onChange={handleInputChange}
             required
-          />
-
-          <input
-            type="tel"
-            name="phone"
-            placeholder={CONTACT_FORM_CONFIG.fields.phone.placeholder}
-            className={styles.formInput}
-            value={formData.phone}
-            onChange={handleInputChange}
           />
 
           <textarea

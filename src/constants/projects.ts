@@ -40,10 +40,5 @@ export const PROJECT_CATEGORIES = [
     name: 'Social',
     type: 'app',
     description: 'Decentralized social'
-  },
-  {
-    name: 'DApps',
-    type: 'app',
-    description: 'Decentralized applications'
   }
 ];
