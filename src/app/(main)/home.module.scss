@@ -32,7 +32,7 @@
 
   @include mobile {
     max-width: 100%;
-    padding: $spacing-lg $spacing-sm; // Reduce horizontal padding to give more space for name
+    padding: $spacing-lg $spacing-md; // Better horizontal padding for mobile readability
     text-align: center;
   }
 }
@@ -50,6 +50,7 @@
 
   @include mobile {
     gap: $spacing-xs;
+    letter-spacing: -0.01em; // Less aggressive letter spacing on mobile
   }
 }
 
@@ -61,7 +62,7 @@
   margin-bottom: $spacing-xs;
 
   @include mobile {
-    font-size: $font-size-xl; // Reduced from 2xl to xl for better proportion with smaller name
+    font-size: $font-size-2xl; // Better proportion with the 4xl name on mobile
   }
 }
 
@@ -80,12 +81,13 @@
   @include mobile {
     font-size: $font-size-4xl; // Reduced from 5xl to 4xl for better mobile fit
     white-space: nowrap; // Keep name on single line to prevent "Hidayat" from going to next line
-    overflow: visible;
-    text-overflow: unset;
-    line-height: 1.1;
+    overflow: hidden; // Prevent horizontal overflow
+    text-overflow: ellipsis; // Show ellipsis if text is too long
+    line-height: 1.2; // Better line height for readability
     text-align: center;
     word-break: break-word; // Allow breaking if really necessary, but prefer to keep whole
     hyphens: none;
+    max-width: 100%; // Ensure it doesn't exceed container width
   }
 }
 
@@ -143,6 +145,11 @@
   max-width: 800px;
   margin: 0 auto;
   padding: $spacing-lg 0;
+
+  @include mobile {
+    max-width: 100%;
+    padding: $spacing-md $spacing-md; // Adjust padding for mobile
+  }
 }
 
 // Content Sections - Unified Professional Structure
@@ -173,10 +180,10 @@
 
     @include mobile {
       text-align: left;
-      text-indent: 1em;
+      text-indent: 0; // Remove indentation for better mobile reading
       margin-bottom: $spacing-xl;
       font-size: $font-size-lg;
-      line-height: 1.7;
+      line-height: 1.8; // Better line height for mobile reading
     }
   }
 }
