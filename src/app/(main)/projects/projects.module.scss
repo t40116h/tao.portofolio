@@ -1,0 +1,510 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+@use '../../../styles/abstracts/fonts' as *;
+
+// Projects section - Like Social page
+.projectsSection {
+  padding: $spacing-2xl 0;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include mobile {
+    padding: $spacing-xl 0;
+    min-height: 60vh;
+  }
+}
+
+.projectsContent {
+  text-align: center;
+}
+
+// Projects title - Like Social page
+.projectsTitle {
+  @include heading-1;
+  margin: 0 0 $spacing-2xl 0;
+  color: $color-text;
+  text-align: center;
+
+  @include mobile {
+    margin: 0 0 $spacing-xl 0;
+  }
+}
+
+// Projects grid - Like Social grid
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 1px;
+  border: 1px solid $color-border;
+  background-color: $color-border;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+  }
+}
+
+// Project item - Like Social item
+.projectItem {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: $color-background;
+  aspect-ratio: 1 / 1;
+  min-height: 160px;
+  overflow: hidden;
+  color: $color-text;
+
+  .borderTop,
+  .borderBottom,
+  .borderLeft,
+  .borderRight {
+    position: absolute;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+    background-color: $color-text;
+  }
+
+  .borderTop,
+  .borderBottom {
+    transform: scaleX(0);
+    width: 100%;
+    height: 1px;
+  }
+
+  .borderLeft,
+  .borderRight {
+    transform: scaleY(0);
+    width: 1px;
+    height: 100%;
+  }
+
+  .borderTop {
+    top: 0;
+    left: 0;
+    transform-origin: left;
+  }
+
+  .borderBottom {
+    right: 0;
+    bottom: 0;
+    transform-origin: right;
+  }
+
+  .borderLeft {
+    bottom: 0;
+    left: 0;
+    transform-origin: bottom;
+  }
+
+  .borderRight {
+    top: 0;
+    right: 0;
+    transform-origin: top;
+  }
+
+  &:hover {
+    .borderTop {
+      transform: scaleX(1);
+    }
+
+    .borderBottom {
+      transform: scaleX(1);
+    }
+
+    .borderLeft {
+      transform: scaleY(1);
+    }
+
+    .borderRight {
+      transform: scaleY(1);
+    }
+
+    .defaultContent {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    .hoverContent {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// Default content - Like Social
+.defaultContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  z-index: 5;
+}
+
+.itemBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.textContainer {
+  text-align: center;
+  padding: $spacing-sm;
+}
+
+.categoryName {
+  @include body-text;
+  font-family: $font-primary;
+  color: $color-text;
+  font-weight: $font-weight-medium;    // Match Social page
+  display: block;
+  margin-bottom: $spacing-xs;
+  font-size: $font-size-base;
+  text-decoration: none;
+  position: relative;
+  transition: color $transition-fast;
+  line-height: 1;
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $color-text;
+    transition: width $transition-fast;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.categoryType {
+  @include body-text;
+  font-family: $font-primary;
+  color: $color-text-light;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;    // Match Social consistency
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Hover content - Like Social page
+.hoverContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  z-index: 5;
+  padding: $spacing-lg $spacing-lg;
+
+  @include mobile {
+    gap: $spacing-xs;
+    padding: $spacing-md;
+  }
+}
+
+// Category name in corner - left top (Like Social)
+.categoryNameCorner {
+  position: absolute;
+  top: $spacing-sm;
+  left: $spacing-sm;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-width: 0;
+  z-index: 10;
+  max-width: 60%;
+}
+
+// Arrow icon in corner - right top (Like Social)
+.arrowIcon {
+  position: absolute;
+  top: $spacing-sm;
+  right: $spacing-sm;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  color: $color-primary;
+  z-index: 10;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+// Category name corner text (Like Social platform text)
+.categoryNameCornerText {
+  @include body-text;
+  font-size: $font-size-sm;
+  font-family: $font-primary;
+  color: $color-text;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  transition: color $transition-fast;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $color-text;
+    transition: width $transition-fast;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+// Simple hint in center (Like Social visit hint)
+.simpleHint {
+  color: $color-text-light;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-align: center;
+  margin: $spacing-lg 0;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Text container small (Like Social)
+.textContainerSmall {
+  min-width: 48px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 $spacing-xs;
+
+  @include mobile {
+    min-width: 40px;
+    height: 18px;
+    padding: 0 $spacing-xs;
+  }
+}
+
+// Category dropdowns container - Grid layout
+.categoryDropdowns {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: center;
+
+  @include mobile {
+    flex-direction: column;
+    gap: $spacing-xs;
+    align-items: center;
+  }
+}
+
+// Individual category dropdown
+.categoryDropdown {
+  position: relative;
+}
+
+.categoryButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $spacing-sm $spacing-lg;
+  background: transparent;
+  color: $color-text;
+  border: 1px solid $color-text;
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  border-radius: 4px;
+  min-width: 100px;
+
+  &:hover {
+    background: $color-text;
+    color: $color-background;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+.categoryLabel {
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.5px;
+  font-size: $font-size-sm;
+}
+
+.separator {
+  color: rgba($color-border, 0.5);
+  font-weight: $font-weight-light;
+  margin: 0 $spacing-xs;
+  font-size: $font-size-sm;
+}
+
+.arrow {
+  font-size: $font-size-xs;
+  opacity: 0.7;
+}
+
+// Dropdown menu - Like Contact page
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  background: $color-background;
+  border: 1px solid rgba($color-border, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-height: 250px;
+  overflow-y: auto;
+  width: 180px;
+  max-width: 220px;
+}
+
+.categoryItem {
+  display: block;
+  width: 100%;
+  padding: $spacing-xs $spacing-sm;
+  background: transparent;
+  border: none;
+  color: $color-text-light;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  text-align: left;
+  cursor: pointer;
+  transition: all $transition-fast;
+  border-bottom: 1px solid rgba($color-border, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba($color-primary, 0.05);
+    color: $color-primary;
+  }
+
+  &.selected {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// Form actions - Like Contact page
+.formActions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: $spacing-lg;
+  justify-content: center;
+  align-items: center;
+  margin-top: $spacing-md;
+
+  @include mobile {
+    gap: $spacing-md;
+  }
+}
+
+// Form buttons - Like Contact page
+.formButton,
+.submitButton {
+  padding: $spacing-sm $spacing-lg;
+  background: transparent;
+  color: $color-text;
+  border: 1px solid $color-text;
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+
+  &:hover {
+    background: $color-text;
+    color: $color-background;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+.submitButton {
+  border-style: dashed;
+
+  &:hover {
+    border-style: solid;
+  }
+}
+
+// Projects note - Like Contact page
+.projectsNote {
+  margin-top: $spacing-2xl;
+  text-align: center;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  p {
+    @include body-text;
+    color: $color-text-light;
+    font-size: $font-size-sm;
+    margin: 0;
+    line-height: 1.5;
+  }
+}

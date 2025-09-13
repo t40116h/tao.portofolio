@@ -1,0 +1,313 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+@use '../../../styles/abstracts/fonts' as *;
+
+.socialSection {
+  padding: $spacing-2xl 0;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include mobile {
+    padding: $spacing-xl 0;
+    min-height: 60vh;
+  }
+}
+
+.socialContent {
+  text-align: center;
+}
+
+.socialTitle {
+  @include heading-1;
+  margin: 0 0 $spacing-2xl 0;
+  color: $color-text;
+  text-align: center;
+
+  @include mobile {
+    margin: 0 0 $spacing-xl 0;
+  }
+}
+
+.socialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  border: 1px solid $color-border;
+  background-color: $color-border;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+.socialItem {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: $color-background;
+  aspect-ratio: 1 / 1;
+  min-height: 180px;
+  overflow: hidden;
+  color: $color-text;
+
+  .borderTop,
+  .borderBottom,
+  .borderLeft,
+  .borderRight {
+    position: absolute;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+    background-color: $color-text;
+  }
+
+  .borderTop,
+  .borderBottom {
+    transform: scaleX(0);
+    width: 100%;
+    height: 1px;
+  }
+
+  .borderLeft,
+  .borderRight {
+    transform: scaleY(0);
+    width: 1px;
+    height: 100%;
+  }
+
+  .borderTop {
+    top: 0;
+    left: 0;
+    transform-origin: left;
+  }
+
+  .borderBottom {
+    right: 0;
+    bottom: 0;
+    transform-origin: right;
+  }
+
+  .borderLeft {
+    bottom: 0;
+    left: 0;
+    transform-origin: bottom;
+  }
+
+  .borderRight {
+    top: 0;
+    right: 0;
+    transform-origin: top;
+  }
+
+  .defaultContent,
+  .hoverContent {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .defaultContent {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .hoverContent {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-sm;           // Smaller gap for tighter centering
+    opacity: 0;
+    padding: $spacing-lg $spacing-lg;  // Reduced top/bottom padding
+    width: 100%;
+    height: 100%;
+
+    @include mobile {
+      padding: $spacing-md;
+      gap: $spacing-xs;        // Even smaller gap on mobile
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    z-index: 20;
+
+    .borderTop,
+    .borderBottom {
+      transform: scaleX(1);
+    }
+
+    .borderLeft,
+    .borderRight {
+      transform: scaleY(1);
+    }
+
+    .defaultContent {
+      opacity: 0;
+    }
+
+    .hoverContent {
+      opacity: 1;
+    }
+  }
+}
+
+
+// Body in default content (centers the icon)
+.itemBody {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+// Platform name in corner - left top
+.platformNameCorner {
+  position: absolute;
+  top: $spacing-sm;        // 8px from top
+  left: $spacing-sm;       // 8px from left
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-width: 0;
+  z-index: 10;
+  max-width: 60%;         // Limit width to prevent overflow
+}
+
+// Arrow icon in corner - right top
+.arrowIcon {
+  position: absolute;
+  top: $spacing-sm;        // 8px from top
+  right: $spacing-sm;      // 8px from right
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  color: $color-primary;
+  z-index: 10;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+// Visit hint in hover content
+.visitHint {
+  color: $color-text-light;
+  font-size: $font-size-sm;     // Slightly larger for better visibility
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-align: center;           // Center the text
+  margin: $spacing-lg 0;       // Vertical margin for spacing
+  font-weight: $font-weight-medium;
+}
+
+
+.textContainer {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include mobile {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.textContainerSmall {
+  min-width: 48px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 $spacing-xs;
+
+  @include mobile {
+    min-width: 40px;
+    height: 18px;
+    padding: 0 $spacing-xs;
+  }
+}
+
+.platformText {
+  @include body-text;
+  font-size: $font-size-base;
+  font-family: $font-primary;
+  color: $color-text;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  transition: color $transition-fast;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $color-text;
+    transition: width $transition-fast;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.platformTextSmall {
+  @include body-text;
+  font-size: $font-size-sm;
+  font-family: $font-primary;
+  color: $color-text;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  transition: color $transition-fast;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;           // Prevent text wrapping
+  overflow: hidden;              // Hide overflow
+  text-overflow: ellipsis;       // Show ellipsis for long text
+  max-width: 100%;              // Ensure it doesn't overflow container
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $color-text;
+    transition: width $transition-fast;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}

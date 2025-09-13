@@ -1,0 +1,40 @@
+// ScrambleText component styles
+// Ensures proper layering of placeholder and overlay text
+
+.root {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+// Placeholder text (invisible but maintains layout)
+.placeholder {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+// Overlay text (visible and scrambled)
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+// Ensure proper text rendering
+.root,
+.placeholder,
+.overlay {
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+}

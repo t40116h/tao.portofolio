@@ -1,0 +1,169 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+@use '../../../styles/abstracts/fonts' as *;
+
+// Footer Styles - Professional
+.footer {
+  background: $color-background;
+  padding: $spacing-md 0;
+  margin-top: auto;
+  min-height: 80px;
+
+  @include mobile {
+    padding: $spacing-sm 0;
+    min-height: 60px;
+  }
+}
+
+.footerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm 0;
+  width: 100%;
+  gap: $spacing-lg;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 0;
+    padding: $spacing-xs 0;
+    text-align: center;
+  }
+}
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 120px; // Match header logo width for consistency
+
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+    order: 1;
+    margin-bottom: $spacing-xs / 2;
+  }
+}
+
+.footerLogoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: $spacing-xs 0;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.footerLogo {
+  width: 20px;
+  height: 20px;
+  color: $color-text;
+  display: block;
+
+  @include mobile {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.footerCenter {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  padding: $spacing-xs 0;
+
+  @include mobile {
+    order: 2;
+    margin-bottom: $spacing-xs;
+  }
+}
+
+.footerCopyright {
+  @include body-text;
+  color: $color-text-light;
+  margin: 0;
+  font-size: $font-size-xs;
+  text-align: center;
+  line-height: 1.3;
+
+  @include mobile {
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-xs;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.footerName {
+  font-family: $font-primary;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+}
+
+.footerRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 120px; // Match header CTA button width for consistency
+  justify-content: flex-end;
+  gap: $spacing-lg;
+
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+    gap: $spacing-sm;
+    order: 3;
+    margin-top: 0;
+  }
+}
+
+.footerLink {
+  @include body-text;
+  color: $color-text;
+  text-decoration: none;
+  font-size: $font-size-xs;
+  font-family: $font-primary;
+  position: relative;
+  transition: color $transition-fast;
+  padding: 0;
+  border-radius: $border-radius-sm;
+
+  @include mobile {
+    font-size: $font-size-sm;
+    padding: $spacing-sm $spacing-md;
+    min-width: 90px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 $spacing-xs;
+  }
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $color-text;
+    transition: width $transition-fast;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  @include mobile {
+    &::after {
+      display: none;
+    }
+  }
+}

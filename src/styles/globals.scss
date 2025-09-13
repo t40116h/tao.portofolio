@@ -1,0 +1,142 @@
+@use 'abstracts/variables' as *;
+@use 'abstracts/fonts' as *;
+@use 'abstracts/mixins' as *;
+@use 'abstracts/functions' as *;
+@use 'abstracts/layout-grid' as *;
+@use 'abstracts/scroll' as *;
+@use 'abstracts/font-style' as *;
+@use 'reset' as *;
+@use 'typography' as *;
+@use 'utilities' as *;
+
+// Global Styles
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-mono;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-text;
+  background-color: $color-background;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden; // Prevent horizontal scrolling
+}
+
+// Focus Management
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  @include focus-visible;
+}
+
+// Selection Styles
+::selection {
+  background-color: $color-primary;
+  color: $color-secondary;
+}
+
+::-moz-selection {
+  background-color: $color-primary;
+  color: $color-secondary;
+}
+
+// Scrollbar Styles
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $color-background-alt;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+  border-radius: $border-radius-sm;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $color-text-light;
+}
+
+// Image Optimization
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Link Styles
+a {
+  color: $color-text;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text-light;
+  }
+}
+
+// Button Reset
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+// List Styles
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// Heading Styles
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+// Paragraph Styles
+p {
+  margin: 0;
+}
+
+// Utility Classes
+.sr-only {
+  @include visually-hidden;
+}
+
+.container {
+  @include container;
+}
+
+.flex-center {
+  @include flex-center;
+}
+
+.flex-between {
+  @include flex-between;
+}
+
+.flex-column {
+  @include flex-column;
+}
+
+.grid-center {
+  @include grid-center;
+}

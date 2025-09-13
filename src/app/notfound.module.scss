@@ -1,0 +1,69 @@
+@use '../styles/abstracts/variables' as *;
+@use '../styles/abstracts/mixins' as *;
+@use '../styles/abstracts/fonts' as *;
+
+.notFound {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-background;
+}
+
+.content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.title {
+  @include heading-1;
+  font-size: 8rem;
+  font-weight: $font-weight-light;
+  margin-bottom: $spacing-sm;
+  color: $color-text-light;
+
+  @include mobile {
+    font-size: 6rem;
+  }
+}
+
+.subtitle {
+  @include heading-2;
+  margin-bottom: $spacing-md;
+  color: $color-text;
+}
+
+.description {
+  @include body-text-large;
+  color: $color-text-light;
+  margin-bottom: $spacing-xl;
+}
+
+.homeLink {
+  @include body-text;
+  color: $color-text;
+  text-decoration: none;
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  position: relative;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text-light;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $color-text;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
