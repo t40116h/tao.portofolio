@@ -24,7 +24,7 @@ const socialPlatforms = [
   {
     name: 'Discord',
     icon: 'discord',
-    url: 'https://discord.com/T40116H'
+    url: 'N/A'
   },
   {
     name: 'Telegram',
@@ -41,9 +41,9 @@ export default function SocialPage() {
 
         <div className={styles.socialGrid}>
           {socialPlatforms.map((platform) => {
-            const isLinkedInNA = platform.name === 'LinkedIn' && platform.url === 'N/A';
+            const isNA = platform.url === 'N/A';
 
-            return isLinkedInNA ? (
+            return isNA ? (
               <div
                 key={platform.name}
                 className={styles.socialItem}
