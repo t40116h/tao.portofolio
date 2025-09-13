@@ -37,10 +37,14 @@
   gap: 1px;
   border: 1px solid $color-border;
   background-color: $color-border;
+  max-width: 100%;
+  overflow: hidden;
 
   @include mobile {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    gap: 0.5px;
+    margin: 0 $spacing-sm;
   }
 }
 
@@ -53,6 +57,11 @@
   min-height: 180px;
   overflow: hidden;
   color: $color-text;
+
+  @include mobile {
+    min-height: 140px;
+    aspect-ratio: 1 / 1;
+  }
 
   .borderTop,
   .borderBottom,
@@ -157,6 +166,31 @@
       opacity: 1;
     }
   }
+
+  // Touch devices - show hover content on tap
+  @include mobile {
+    &:active {
+      z-index: 20;
+
+      .borderTop,
+      .borderBottom {
+        transform: scaleX(1);
+      }
+
+      .borderLeft,
+      .borderRight {
+        transform: scaleY(1);
+      }
+
+      .defaultContent {
+        opacity: 0;
+      }
+
+      .hoverContent {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 
@@ -213,6 +247,11 @@
   text-align: center;           // Center the text
   margin: $spacing-lg 0;       // Vertical margin for spacing
   font-weight: $font-weight-medium;
+
+  @include mobile {
+    font-size: $font-size-xs;
+    margin: $spacing-sm 0;
+  }
 }
 
 
@@ -255,6 +294,10 @@
   transition: color $transition-fast;
   line-height: 1;
   font-weight: $font-weight-medium;
+
+  @include mobile {
+    font-size: $font-size-sm;
+  }
 
   &:hover {
     color: $color-text-light;
