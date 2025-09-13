@@ -25,9 +25,10 @@
 
   @include mobile {
     flex-direction: column;
-    gap: 0;
-    padding: $spacing-xs 0;
+    gap: $spacing-sm;
+    padding: $spacing-sm 0;
     text-align: center;
+    align-items: center;
   }
 }
 
@@ -38,10 +39,10 @@
   width: 120px; // Match header logo width for consistency
 
   @include mobile {
-    width: 100%;
+    width: auto;
     justify-content: center;
     order: 1;
-    margin-bottom: calc($spacing-xs / 2);
+    margin-bottom: 0;
   }
 }
 
@@ -78,7 +79,9 @@
 
   @include mobile {
     order: 2;
-    margin-bottom: $spacing-xs;
+    margin-bottom: 0;
+    flex: none;
+    width: auto;
   }
 }
 
@@ -92,10 +95,11 @@
 
   @include mobile {
     font-size: $font-size-sm;
-    margin-bottom: $spacing-xs;
-    max-width: 280px;
+    margin-bottom: 0;
+    max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 $spacing-sm;
   }
 }
 
@@ -114,9 +118,9 @@
   gap: $spacing-lg;
 
   @include mobile {
-    width: 100%;
+    width: auto;
     justify-content: center;
-    gap: $spacing-sm;
+    gap: $spacing-md;
     order: 3;
     margin-top: 0;
   }
@@ -135,11 +139,11 @@
 
   @include mobile {
     font-size: $font-size-sm;
-    padding: $spacing-sm $spacing-md;
-    min-width: 90px;
+    padding: $spacing-xs $spacing-sm;
+    min-width: 80px;
     display: inline-block;
     text-align: center;
-    margin: 0 $spacing-xs;
+    margin: 0;
   }
 
   &:hover {
