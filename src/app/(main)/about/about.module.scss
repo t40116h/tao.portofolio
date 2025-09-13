@@ -37,7 +37,7 @@
 }
 
 .aboutTitle {
-  @include heading-2;
+  @include heading-4;
   margin: 0 0 $spacing-2xl 0;
   color: $color-text;
   text-align: center;
