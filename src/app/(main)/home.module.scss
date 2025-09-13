@@ -62,7 +62,7 @@
   margin-bottom: $spacing-xs;
 
   @include mobile {
-    font-size: $font-size-2xl; // Better proportion with the 4xl name on mobile
+    font-size: $font-size-xl; // Better proportion with the more compact name on mobile
   }
 }
 
@@ -79,11 +79,11 @@
   text-align: center;
 
   @include mobile {
-    font-size: $font-size-3xl; // Smaller size for better mobile compatibility
+    font-size: $font-size-2xl; // More compact size for better mobile compatibility
     white-space: nowrap; // Keep name on single line
     overflow: hidden; // Prevent horizontal overflow
     text-overflow: ellipsis; // Show ellipsis if text is too long (fallback)
-    line-height: 1.2; // Better line height for readability
+    line-height: 1.1; // More compact line height
     text-align: center;
     word-break: break-word; // Allow breaking if absolutely necessary
     hyphens: none;
