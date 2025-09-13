@@ -37,7 +37,7 @@
 }
 
 .aboutTitle {
-  @include heading-4;
+  @include heading-2;
   margin: 0 0 $spacing-2xl 0;
   color: $color-text;
   text-align: center;
@@ -72,6 +72,9 @@
       color: $color-text;
       text-align: left; // Keep location text left-aligned
       text-indent: 0; // No indent for location text
+      font-size: $font-size-base; // Smaller font size like desktop
+      line-height: $line-height-normal; // Normal line height
+      margin-bottom: $spacing-lg; // Less bottom margin
     }
 
     &:nth-child(2) {
@@ -96,6 +99,8 @@
       &:first-child {
         text-align: left; // Ensure location text stays left-aligned on mobile
         text-indent: 0; // No indent for location text on mobile
+        font-size: $font-size-sm; // Even smaller on mobile for better fit
+        margin-bottom: $spacing-md; // Appropriate spacing on mobile
       }
     }
   }
