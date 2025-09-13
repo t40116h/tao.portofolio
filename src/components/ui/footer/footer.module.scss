@@ -96,13 +96,14 @@
   @include mobile {
     font-size: $font-size-sm;
     margin-bottom: 0;
-    max-width: 320px;
+    max-width: 350px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 $spacing-sm;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+    text-align: center;
   }
 }
 
@@ -110,6 +111,12 @@
   font-family: $font-primary;
   font-weight: $font-weight-medium;
   color: $color-text;
+  white-space: nowrap;
+
+  @include mobile {
+    white-space: normal;
+    display: inline;
+  }
 }
 
 .mobileBreak {
@@ -117,6 +124,8 @@
 
   @include mobile {
     display: block;
+    margin: 0;
+    padding: 0;
   }
 }
 
