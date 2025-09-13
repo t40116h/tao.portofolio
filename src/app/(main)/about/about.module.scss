@@ -52,7 +52,7 @@
   text-align: left;
 
   @include mobile {
-    text-align: center;
+    text-align: left; // Consistent left alignment for better readability
   }
 
   p {
@@ -70,6 +70,8 @@
     &:first-child {
       font-weight: $font-weight-medium;
       color: $color-text;
+      text-align: left; // Keep location text left-aligned
+      text-indent: 0; // No indent for location text
     }
 
     &:nth-child(2) {
@@ -90,6 +92,11 @@
       margin-bottom: $spacing-xl;
       font-size: $font-size-lg;
       line-height: 1.7;
+
+      &:first-child {
+        text-align: left; // Ensure location text stays left-aligned on mobile
+        text-indent: 0; // No indent for location text on mobile
+      }
     }
   }
 }
