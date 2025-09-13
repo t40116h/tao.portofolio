@@ -40,10 +40,14 @@
   gap: 1px;
   border: 1px solid $color-border;
   background-color: $color-border;
+  max-width: 100%;
+  overflow: hidden;
 
   @include mobile {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(12, 1fr);
+    gap: 0.5px;
+    margin: 0 $spacing-sm;
   }
 }
 
@@ -57,6 +61,11 @@
   min-height: 160px;
   overflow: hidden;
   color: $color-text;
+
+  @include mobile {
+    min-height: 120px;
+    aspect-ratio: 1 / 1;
+  }
 
   .borderTop,
   .borderBottom,
@@ -133,6 +142,37 @@
       transform: translateY(0);
     }
   }
+
+  // Touch devices - show hover content on tap
+  @include mobile {
+    &:active {
+      .borderTop {
+        transform: scaleX(1);
+      }
+
+      .borderBottom {
+        transform: scaleX(1);
+      }
+
+      .borderLeft {
+        transform: scaleY(1);
+      }
+
+      .borderRight {
+        transform: scaleY(1);
+      }
+
+      .defaultContent {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      .hoverContent {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
 }
 
 // Default content - Like Social
@@ -161,6 +201,10 @@
 .textContainer {
   text-align: center;
   padding: $spacing-sm;
+
+  @include mobile {
+    padding: $spacing-xs;
+  }
 }
 
 .categoryName {
@@ -175,6 +219,11 @@
   position: relative;
   transition: color $transition-fast;
   line-height: 1;
+
+  @include mobile {
+    font-size: $font-size-sm;
+    margin-bottom: calc($spacing-xs / 2);
+  }
 
   &:hover {
     color: $color-text-light;
@@ -204,6 +253,11 @@
   font-weight: $font-weight-medium;    // Match Social consistency
   text-transform: uppercase;
   letter-spacing: 0.5px;
+
+  @include mobile {
+    font-size: calc($font-size-xs * 0.9);
+    letter-spacing: 0.3px;
+  }
 }
 
 // Hover content - Like Social page
@@ -309,6 +363,12 @@
   font-weight: $font-weight-medium;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+
+  @include mobile {
+    font-size: $font-size-xs;
+    margin: $spacing-sm 0;
+    letter-spacing: 0.3px;
+  }
 }
 
 // Text container small (Like Social)
