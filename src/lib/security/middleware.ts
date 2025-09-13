@@ -46,20 +46,31 @@ export function withSecurity(handler: (req: NextRequest) => Promise<NextResponse
   };
 }
 
-export function handleOptions(): NextResponse {
+export function handleOptions(request?: NextRequest): NextResponse {
+  const allowedOrigins = getAllowedOrigins;
+  const origin = request?.headers.get('origin');
+
+  const headers: Record<string, string> = {
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+  };
+
+  // Only set origin if it's in allowed origins
+  if (origin && allowedOrigins.includes(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
+
   return new NextResponse(null, {
     status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400',
-    },
+    headers,
   });
 }
 
-export default {
+const middleware = {
   withCORS,
   withSecurity,
   handleOptions,
 };
+
+export default middleware;

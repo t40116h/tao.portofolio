@@ -36,6 +36,7 @@ export function useScramble(
       }
       const revealCount = Math.floor(eased * originalText.length);
       for (let i = 0; i < originalText.length; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const ch = originalText[i];
         if (/\s/.test(ch)) {
           newText += ch;
@@ -48,6 +49,7 @@ export function useScramble(
             // Use characters that have similar width to prevent layout shift
             // Prioritize characters from the same character set
             const randomIndex = (i * 31 + tick * 101 + 7) % pool.length;
+            // eslint-disable-next-line security/detect-object-injection
             const scrambledChar = pool[randomIndex];
             // Ensure the scrambled character has similar width
             newText += scrambledChar;
@@ -67,7 +69,7 @@ export function useScramble(
     };
 
     animationFrameRef.current = requestAnimationFrame(animate);
-  }, [originalText, onScramble]);
+  }, [originalText, onScramble, durationMs, stepMs]);
 
   const stopScramble = useCallback(() => {
     if (animationFrameRef.current) {

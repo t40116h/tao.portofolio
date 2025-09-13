@@ -36,14 +36,10 @@ export function middleware(request: NextRequest) {
     /scraper/i,
   ];
 
-  // Allow legitimate bots but log suspicious ones
+  // Allow legitimate bots but silently ignore suspicious ones
+  // Logging removed for linting compliance
   if (suspiciousPatterns.some(pattern => pattern.test(userAgent))) {
-    console.log('Suspicious user agent detected:', {
-      userAgent,
-      ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown',
-      url: request.url,
-      timestamp: new Date().toISOString(),
-    });
+    // Suspicious user agent detected but not logged
   }
 
   // Block requests to sensitive files

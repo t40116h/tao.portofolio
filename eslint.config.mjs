@@ -55,6 +55,7 @@ export default tse.config(
       'out/',
       'public/assets/',
       '.pnpm-store/',
+      'next-env.d.ts',
     ],
   },
 );

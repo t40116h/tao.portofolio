@@ -5,19 +5,36 @@
 
 import { NextRequest } from 'next/server';
 
-export interface ValidationResult {
+export interface ContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  phone?: string;
+}
+
+export interface SanitizedContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  phone?: string;
+}
+
+export interface ValidationResult<T = unknown> {
   isValid: boolean;
   errors: string[];
-  data?: any;
+  data?: T;
 }
 
 export class InputValidator {
   /**
-   * Validate email format
+   * Validate email format (ReDoS-safe)
    */
   static validateEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    // Simple and safe email validation to prevent ReDoS
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email) && email.length <= 254;
   }
 
   /**
@@ -43,15 +60,25 @@ export class InputValidator {
   /**
    * Validate and sanitize contact form data
    */
-  static validateContactForm(data: any): ValidationResult {
+  static validateContactForm(data: unknown): ValidationResult<SanitizedContactFormData> {
     const errors: string[] = [];
-    const sanitized: any = {};
+    const sanitized: Partial<SanitizedContactFormData> = {};
+
+    // Type guard to ensure data is an object
+    if (!data || typeof data !== 'object') {
+      return {
+        isValid: false,
+        errors: ['Invalid data format'],
+      };
+    }
+
+    const formData = data as Record<string, unknown>;
 
     // Name validation
-    if (!data.name || typeof data.name !== 'string') {
+    if (!formData.name || typeof formData.name !== 'string') {
       errors.push('Name is required');
     } else {
-      const name = this.sanitizeString(data.name, 100);
+      const name = this.sanitizeString(formData.name, 100);
       if (name.length < 2) {
         errors.push('Name must be at least 2 characters long');
       } else {
@@ -60,10 +87,10 @@ export class InputValidator {
     }
 
     // Email validation
-    if (!data.email || typeof data.email !== 'string') {
+    if (!formData.email || typeof formData.email !== 'string') {
       errors.push('Email is required');
     } else {
-      const email = this.sanitizeString(data.email, 254);
+      const email = this.sanitizeString(formData.email, 254);
       if (!this.validateEmail(email)) {
         errors.push('Invalid email format');
       } else {
@@ -72,10 +99,10 @@ export class InputValidator {
     }
 
     // Subject validation
-    if (!data.subject || typeof data.subject !== 'string') {
+    if (!formData.subject || typeof formData.subject !== 'string') {
       errors.push('Subject is required');
     } else {
-      const subject = this.sanitizeString(data.subject, 200);
+      const subject = this.sanitizeString(formData.subject, 200);
       if (subject.length < 3) {
         errors.push('Subject must be at least 3 characters long');
       } else {
@@ -84,10 +111,10 @@ export class InputValidator {
     }
 
     // Message validation
-    if (!data.message || typeof data.message !== 'string') {
+    if (!formData.message || typeof formData.message !== 'string') {
       errors.push('Message is required');
     } else {
-      const message = this.sanitizeString(data.message, 5000);
+      const message = this.sanitizeString(formData.message, 5000);
       if (message.length < 10) {
         errors.push('Message must be at least 10 characters long');
       } else {
@@ -96,8 +123,8 @@ export class InputValidator {
     }
 
     // Phone validation (optional)
-    if (data.phone && typeof data.phone === 'string') {
-      const phone = this.sanitizeString(data.phone, 20);
+    if (formData.phone && typeof formData.phone === 'string') {
+      const phone = this.sanitizeString(formData.phone, 20);
       if (phone && !this.validatePhone(phone)) {
         errors.push('Invalid phone number format');
       } else if (phone) {
@@ -105,10 +132,13 @@ export class InputValidator {
       }
     }
 
+    // Check if all required fields are present
+    const hasAllRequired = Boolean(sanitized.name && sanitized.email && sanitized.subject && sanitized.message);
+
     return {
-      isValid: errors.length === 0,
+      isValid: errors.length === 0 && hasAllRequired,
       errors,
-      data: errors.length === 0 ? sanitized : undefined,
+      data: (errors.length === 0 && hasAllRequired) ? sanitized as SanitizedContactFormData : undefined,
     };
   }
 

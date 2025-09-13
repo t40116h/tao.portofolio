@@ -65,7 +65,7 @@ export default function ContactPage() {
           error: result.error || 'Something went wrong. Please try again.'
         });
       }
-    } catch (error) {
+    } catch {
       setFormState({
         isSubmitting: false,
         isSuccess: false,
@@ -81,7 +81,7 @@ export default function ContactPage() {
 
         {formState.isSuccess && (
           <div className={styles.successMessage}>
-            <p>Thank you for your message! I'll get back to you within 24 hours.</p>
+            <p>Thank you for your message! I&apos;ll get back to you within 24 hours.</p>
           </div>
         )}
 

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ScrambleText } from '@/components/ui/scrambletext';
 import styles from './notfound.module.scss';
 
@@ -11,11 +12,11 @@ export default function NotFound() {
             <ScrambleText>Page Not Found</ScrambleText>
           </h2>
           <p className={styles.description}>
-            <ScrambleText>The page you're looking for doesn't exist or has been moved.</ScrambleText>
+            <ScrambleText>The page you&apos;re looking for doesn&apos;t exist or has been moved.</ScrambleText>
           </p>
-          <a href="/" className={styles.homeLink}>
+          <Link href="/" className={styles.homeLink}>
             <ScrambleText>Return Home</ScrambleText>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

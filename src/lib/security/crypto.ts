@@ -3,6 +3,7 @@
  * Provides secure random generation and hashing functions
  */
 
+import bcrypt from 'bcrypt';
 import { createHash, createHmac, randomBytes } from 'crypto';
 
 export class CryptoUtils {
@@ -73,20 +74,18 @@ export class CryptoUtils {
   }
 
   /**
-   * Generate a secure password hash (for future use)
+   * Generate a secure password hash using bcrypt
    */
-  static async hashPassword(password: string, salt?: string): Promise<{ hash: string; salt: string }> {
-    const actualSalt = salt || this.generateSecureToken(16);
-    const hash = this.sha256(password + actualSalt);
-    return { hash, salt: actualSalt };
+  static async hashPassword(password: string): Promise<string> {
+    const saltRounds = 12; // Recommended minimum for bcrypt
+    return await bcrypt.hash(password, saltRounds);
   }
 
   /**
    * Verify a password against its hash
    */
-  static async verifyPassword(password: string, hash: string, salt: string): Promise<boolean> {
-    const { hash: computedHash } = await this.hashPassword(password, salt);
-    return this.constantTimeCompare(hash, computedHash);
+  static async verifyPassword(password: string, hash: string): Promise<boolean> {
+    return await bcrypt.compare(password, hash);
   }
 }
 

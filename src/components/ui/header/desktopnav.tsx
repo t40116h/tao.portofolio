@@ -1,6 +1,7 @@
 'use client';
 
 import { ScrambleText } from '@/components/ui/scrambletext';
+import Link from 'next/link';
 import styles from './header.module.scss';
 
 export default function DesktopNav() {
@@ -9,17 +10,17 @@ export default function DesktopNav() {
       {/* Desktop Navigation */}
       <div className={styles.navCenter}>
         <ul className={styles.navList}>
-          <li><a href="/about"><ScrambleText>About</ScrambleText></a></li>
-          <li><a href="/projects"><ScrambleText>Work</ScrambleText></a></li>
-          <li><a href="/articles"><ScrambleText>Articles</ScrambleText></a></li>
-          <li><a href="/contact"><ScrambleText>Contact</ScrambleText></a></li>
-          <li><a href="/social"><ScrambleText>Social</ScrambleText></a></li>
+          <li><Link href="/about"><ScrambleText>About</ScrambleText></Link></li>
+          <li><Link href="/projects"><ScrambleText>Work</ScrambleText></Link></li>
+          <li><Link href="/articles"><ScrambleText>Articles</ScrambleText></Link></li>
+          <li><Link href="/contact"><ScrambleText>Contact</ScrambleText></Link></li>
+          <li><Link href="/social"><ScrambleText>Social</ScrambleText></Link></li>
         </ul>
       </div>
 
       {/* Desktop CTA */}
       <div className={styles.navRight}>
-        <a href="/contact" className={styles.ctaLink}><ScrambleText>let's talk</ScrambleText></a>
+        <Link href="/contact" className={styles.ctaLink}><ScrambleText>let&apos;s talk</ScrambleText></Link>
       </div>
     </>
   );

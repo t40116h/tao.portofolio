@@ -2,6 +2,7 @@
 
 import { Panel } from '@/components/ui/panel';
 import { ScrambleText } from '@/components/ui/scrambletext';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import DesktopNav from './desktopnav';
 import styles from './header.module.scss';
@@ -56,7 +57,7 @@ export default function Header() {
             <nav className={styles.nav}>
               {/* Logo */}
               <div className={styles.logo}>
-                <a href="/" className={styles.logoLink}>
+                <Link href="/" className={styles.logoLink}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -68,7 +69,7 @@ export default function Header() {
                     <path fill="currentColor" d="M12.53 17.783v-9.08a4.144 4.144 0 0 0-4.14-4.117v14.511a3.8 3.8 0 0 0 3.96 3.841 4.28 4.28 0 0 0 2.816-.816c-2.39-.253-2.635-1.693-2.635-4.339"/>
                     <path fill="currentColor" d="M3.775.787A3.8 3.8 0 0 0 0 4.587h16.893a3.8 3.8 0 0 0 3.775-3.8z"/>
                   </svg>
-                </a>
+                </Link>
               </div>
 
               {/* Desktop Navigation */}

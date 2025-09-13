@@ -1,6 +1,7 @@
 'use client';
 
 import { ScrambleText } from '@/components/ui/scrambletext';
+import Link from 'next/link';
 import styles from './header.module.scss';
 
 interface MobileNavProps {
@@ -27,38 +28,38 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           <div className={styles.mobileNavContent}>
             <ul className={styles.mobileNavList}>
               <li>
-                <a href="/about" onClick={onClose}>
+                <Link href="/about" onClick={onClose}>
                   <ScrambleText shouldScramble={false}>About</ScrambleText>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/projects" onClick={onClose}>
+                <Link href="/projects" onClick={onClose}>
                   <ScrambleText shouldScramble={false}>Work</ScrambleText>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/articles" onClick={onClose}>
+                <Link href="/articles" onClick={onClose}>
                   <ScrambleText shouldScramble={false}>Articles</ScrambleText>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contact" onClick={onClose}>
+                <Link href="/contact" onClick={onClose}>
                   <ScrambleText shouldScramble={false}>Contact</ScrambleText>
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/social" onClick={onClose}>
+                <Link href="/social" onClick={onClose}>
                   <ScrambleText shouldScramble={false}>Social</ScrambleText>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* CTA Section */}
           <div className={styles.mobileCta}>
-            <a href="/contact" onClick={onClose} className={styles.mobileCtaLink}>
-              <ScrambleText shouldScramble={false}>let's talk</ScrambleText>
-            </a>
+            <Link href="/contact" onClick={onClose} className={styles.mobileCtaLink}>
+              <ScrambleText shouldScramble={false}>let&apos;s talk</ScrambleText>
+            </Link>
           </div>
         </nav>
       </div>
