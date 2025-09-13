@@ -49,7 +49,7 @@
   letter-spacing: -0.02em;
 
   @include mobile {
-    gap: $spacing-xs;
+    gap: $spacing-sm; // Better spacing between greeting and name on mobile
     letter-spacing: -0.01em; // Less aggressive letter spacing on mobile
   }
 }
@@ -80,6 +80,7 @@
 
   @include mobile {
     font-size: $font-size-2xl; // More compact size for better mobile compatibility
+    margin-bottom: $spacing-sm; // Reduce bottom margin on mobile for better spacing
     white-space: nowrap; // Keep name on single line
     overflow: hidden; // Prevent horizontal overflow
     text-overflow: ellipsis; // Show ellipsis if text is too long (fallback)
@@ -107,6 +108,8 @@
   @include mobile {
     font-size: $font-size-lg;
     margin-top: $spacing-md;
+    max-width: 90%; // Better fit on mobile screens
+    padding: 0 $spacing-sm; // Add horizontal padding for better readability
   }
 }
 
@@ -180,10 +183,10 @@
 
     @include mobile {
       text-align: left;
-      text-indent: 0; // Remove indentation for better mobile reading
+      text-indent: 1em; // Consistent indentation with other sections
       margin-bottom: $spacing-xl;
       font-size: $font-size-lg;
-      line-height: 1.8; // Better line height for mobile reading
+      line-height: 1.7; // Consistent line height with other sections
     }
   }
 }
@@ -227,6 +230,10 @@
 
   &:hover {
     color: $color-text-light;
+  }
+
+  @include mobile {
+    font-size: $font-size-sm; // Slightly smaller on mobile for better fit
   }
 
   // Hover line effects removed

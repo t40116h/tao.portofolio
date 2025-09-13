@@ -37,15 +37,13 @@
 }
 
 .aboutTitle {
-  @include heading-1;
+  @include heading-2;
   margin: 0 0 $spacing-2xl 0;
   color: $color-text;
   text-align: center;
-  font-size: $font-size-lg;
 
   @include mobile {
     margin: 0 0 $spacing-xl 0;
-    font-size: $font-size-base;
   }
 }
 
