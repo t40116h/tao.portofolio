@@ -30,13 +30,13 @@ export const CONTACT_FORM_CONFIG = {
     },
     subject: {
       label: 'Subject',
-      placeholder: 'What is this about?',
+      placeholder: 'Subject',
       type: 'text',
       required: true,
     },
     phone: {
       label: 'Phone (Optional)',
-      placeholder: 'Your phone number',
+      placeholder: 'Phone',
       type: 'tel',
       required: false,
     },

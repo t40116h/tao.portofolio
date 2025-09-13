@@ -79,13 +79,13 @@
   text-align: center;
 
   @include mobile {
-    font-size: $font-size-4xl; // Reduced from 5xl to 4xl for better mobile fit
-    white-space: nowrap; // Keep name on single line to prevent "Hidayat" from going to next line
+    font-size: $font-size-3xl; // Smaller size for better mobile compatibility
+    white-space: nowrap; // Keep name on single line
     overflow: hidden; // Prevent horizontal overflow
-    text-overflow: ellipsis; // Show ellipsis if text is too long
+    text-overflow: ellipsis; // Show ellipsis if text is too long (fallback)
     line-height: 1.2; // Better line height for readability
     text-align: center;
-    word-break: break-word; // Allow breaking if really necessary, but prefer to keep whole
+    word-break: break-word; // Allow breaking if absolutely necessary
     hyphens: none;
     max-width: 100%; // Ensure it doesn't exceed container width
   }
