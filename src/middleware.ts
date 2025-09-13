@@ -1,46 +1,16 @@
 /**
- * Next.js middleware for global security
- * Runs on every request to apply security measures
+ * Simplified Next.js middleware
+ * Basic security without environment dependencies
  */
 
-import { getAllowedOrigins } from '@/lib/security/env';
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  const origin = request.headers.get('origin');
-  const allowedOrigins = getAllowedOrigins;
 
-  // Add security headers to all responses
+  // Basic security headers
   response.headers.set('X-DNS-Prefetch-Control', 'off');
   response.headers.set('X-Download-Options', 'noopen');
-  response.headers.set('X-Permitted-Cross-Domain-Policies', 'none');
-
-  // CORS headers for API routes
-  if (request.nextUrl.pathname.startsWith('/api/')) {
-    if (origin && allowedOrigins.includes(origin)) {
-      response.headers.set('Access-Control-Allow-Origin', origin);
-    }
-
-    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    response.headers.set('Access-Control-Max-Age', '86400');
-  }
-
-  // Block requests with suspicious patterns
-  const userAgent = request.headers.get('user-agent') || '';
-  const suspiciousPatterns = [
-    /bot/i,
-    /crawler/i,
-    /spider/i,
-    /scraper/i,
-  ];
-
-  // Allow legitimate bots but silently ignore suspicious ones
-  // Logging removed for linting compliance
-  if (suspiciousPatterns.some(pattern => pattern.test(userAgent))) {
-    // Suspicious user agent detected but not logged
-  }
 
   // Block requests to sensitive files
   const sensitivePaths = [
@@ -54,7 +24,6 @@ export function middleware(request: NextRequest) {
     '/.git',
     '/.gitignore',
     '/README.md',
-    '/security.md',
   ];
 
   if (sensitivePaths.some(path => request.nextUrl.pathname.startsWith(path))) {
