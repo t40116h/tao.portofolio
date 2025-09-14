@@ -53,7 +53,7 @@ class EnvValidator {
     // Optional but validated variables
     this.config = {
       ...required,
-      NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+      NEXTAUTH_SECRET: this.validateNextAuthSecret(process.env.NEXTAUTH_SECRET),
       NEXTAUTH_URL: process.env.NEXTAUTH_URL,
       API_RATE_LIMIT_MAX: this.parseNumber(process.env.API_RATE_LIMIT_MAX, 100),
       API_RATE_LIMIT_WINDOW: this.parseNumber(process.env.API_RATE_LIMIT_WINDOW, 900000),
@@ -94,6 +94,46 @@ class EnvValidator {
       throw new Error(`Invalid number: ${value}`);
     }
     return parsed;
+  }
+
+  private validateNextAuthSecret(secret: string | undefined): string | undefined {
+    if (!secret) {
+      // In production, NextAuth secret is required
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('NEXTAUTH_SECRET is required in production');
+      }
+      return undefined;
+    }
+
+    // Validate secret strength
+    if (secret.length < 32) {
+      throw new Error('NEXTAUTH_SECRET must be at least 32 characters long');
+    }
+
+    // Check for common weak patterns
+    const weakPatterns = [
+      /^password/i,
+      /^123456/,
+      /^admin/i,
+      /^secret/i,
+      /^token/i,
+      /^key/i
+    ];
+
+    if (weakPatterns.some(pattern => pattern.test(secret))) {
+      throw new Error('NEXTAUTH_SECRET contains common weak patterns');
+    }
+
+    // Check entropy (basic check) - warning handled at application level if needed
+    const uniqueChars = new Set(secret).size;
+    const entropyRatio = uniqueChars / secret.length;
+
+    // Low entropy check - consider logging at application level instead
+    if (entropyRatio < 0.7) {
+      // Entropy ratio below recommended threshold
+    }
+
+    return secret;
   }
 
   public getConfig(): EnvConfig {

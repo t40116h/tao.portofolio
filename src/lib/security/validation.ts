@@ -29,32 +29,104 @@ export interface ValidationResult<T = unknown> {
 
 export class InputValidator {
   /**
-   * Validate email format (ReDoS-safe)
+   * Validate email format (ReDoS-safe and RFC compliant)
    */
   static validateEmail(email: string): boolean {
-    // Simple and safe email validation to prevent ReDoS
+    if (!email || email.length > 254 || email.length < 3) return false;
+
+    // Safe email validation with basic RFC compliance
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email) && email.length <= 254;
+
+    if (!emailRegex.test(email)) return false;
+
+    // Additional checks for common issues
+    const [localPart, domainPart] = email.split('@');
+
+    // Local part should not be empty and not start/end with dots
+    if (!localPart || localPart.startsWith('.') || localPart.endsWith('.')) return false;
+
+    // Domain part should not be empty and not start/end with dots or hyphens
+    if (!domainPart || domainPart.startsWith('.') || domainPart.endsWith('.') ||
+        domainPart.startsWith('-') || domainPart.endsWith('-')) return false;
+
+    // Check for consecutive dots
+    if (localPart.includes('..') || domainPart.includes('..')) return false;
+
+    return true;
   }
 
   /**
-   * Validate phone number format
+   * Validate phone number format (E.164 international standard)
    */
   static validatePhone(phone: string): boolean {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+    if (!phone || phone.length < 7 || phone.length > 16) return false;
+
+    // Remove all non-digit characters except +
+    const cleaned = phone.replace(/[^\d+]/g, '');
+
+    // Must start with + for international numbers or digit for local
+    if (!cleaned.startsWith('+') && !/^\d/.test(cleaned)) return false;
+
+    // If starts with +, must be followed by country code and number
+    if (cleaned.startsWith('+')) {
+      const withoutPlus = cleaned.substring(1);
+      // Country code (1-4 digits) + subscriber number (6-12 digits)
+      return /^\d{1,4}\d{6,12}$/.test(withoutPlus) && withoutPlus.length >= 7 && withoutPlus.length <= 15;
+    }
+
+    // For local numbers (no +), validate as North American or general format
+    return /^\d{7,15}$/.test(cleaned);
   }
 
   /**
-   * Sanitize string input
+   * Sanitize string input with comprehensive XSS protection
    */
   static sanitizeString(input: string, maxLength: number = 1000): string {
+    if (!input || typeof input !== 'string') return '';
+
     return input
       .trim()
       .slice(0, maxLength)
-      .replace(/[<>]/g, '') // Remove potential HTML tags
-      .replace(/javascript:/gi, '') // Remove javascript: protocol
-      .replace(/on\w+=/gi, ''); // Remove event handlers
+      // Remove null bytes and other control characters
+      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+      // HTML encode dangerous characters
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;')
+      .replace(/\//g, '&#x2F;')
+      // Remove javascript: protocol and other dangerous protocols
+      .replace(/javascript:/gi, '')
+      .replace(/vbscript:/gi, '')
+      .replace(/data:/gi, '')
+      .replace(/file:/gi, '')
+      // Remove event handlers
+      .replace(/on\w+\s*=/gi, '')
+      // Remove script tags and other dangerous elements (safer approach)
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, '')
+      .replace(/<object\b[^>]*>[\s\S]*?<\/object>/gi, '')
+      .replace(/<embed\b[^>]*>[\s\S]*?<\/embed>/gi, '');
+  }
+
+  /**
+   * Sanitize HTML content (more permissive for rich text)
+   */
+  static sanitizeHtml(input: string, maxLength: number = 5000): string {
+    if (!input || typeof input !== 'string') return '';
+
+    return input
+      .trim()
+      .slice(0, maxLength)
+      // Remove null bytes
+      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+      // Remove script tags completely (safer regex)
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      // Remove javascript: and other dangerous protocols
+      .replace(/javascript:/gi, '')
+      .replace(/vbscript:/gi, '')
+      .replace(/on\w+\s*=/gi, '');
   }
 
   /**

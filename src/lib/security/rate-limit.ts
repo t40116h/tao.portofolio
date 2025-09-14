@@ -27,11 +27,61 @@ class RateLimiter {
   }
 
   private getKey(request: NextRequest): string {
-    // Use IP address as the key
+    // Secure IP extraction with spoofing protection
     const forwarded = request.headers.get('x-forwarded-for');
     const realIp = request.headers.get('x-real-ip');
-    const ip = forwarded ? forwarded.split(',')[0].trim() : realIp || 'unknown';
+
+    let ip: string;
+
+    // In production, prefer X-Real-IP from trusted proxies, then first X-Forwarded-For
+    // In development, use direct connection
+    if (process.env.NODE_ENV === 'production') {
+      // Trust X-Real-IP if present (set by trusted proxy like Cloudflare)
+      if (realIp && this.isValidIP(realIp)) {
+        ip = realIp;
+      } else if (forwarded) {
+        // Take the first IP from X-Forwarded-For (closest to client)
+        const firstIP = forwarded.split(',')[0].trim();
+        if (this.isValidIP(firstIP)) {
+          ip = firstIP;
+        } else {
+          ip = 'invalid';
+        }
+      } else {
+        ip = 'unknown';
+      }
+    } else {
+      // In development, try to get from forwarded headers or fall back
+      if (forwarded && this.isValidIP(forwarded.split(',')[0].trim())) {
+        ip = forwarded.split(',')[0].trim();
+      } else if (realIp && this.isValidIP(realIp)) {
+        ip = realIp;
+      } else {
+        ip = '127.0.0.1'; // localhost fallback
+      }
+    }
+
     return ip;
+  }
+
+  private isValidIP(ip: string): boolean {
+    // Basic IP validation - IPv4 and IPv6
+    const ipv4Regex = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+    // Basic IPv6 validation - simplified to avoid unsafe regex patterns
+    const ipv6Regex = /^[0-9a-fA-F:]+$/;
+
+    if (ipv4Regex.test(ip)) {
+      // Validate IPv4 octets
+      const octets = ip.split('.').map(Number);
+      return octets.every(octet => octet >= 0 && octet <= 255);
+    }
+
+    if (ipv6Regex.test(ip)) {
+      return true; // Basic IPv6 validation
+    }
+
+    // Allow localhost variations
+    return ['localhost', '::1', '127.0.0.1'].includes(ip);
   }
 
   private cleanup(): void {
@@ -51,7 +101,8 @@ class RateLimiter {
 
       for (let i = 0; i < entriesToRemove && i < sortedEntries.length; i++) {
         // eslint-disable-next-line security/detect-object-injection
-        this.store.delete(sortedEntries[i][0]);
+        const [key] = sortedEntries[i];
+        this.store.delete(key);
       }
     }
   }
