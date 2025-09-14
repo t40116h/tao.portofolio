@@ -16,7 +16,7 @@ export interface SecurityConfig {
 export function withCORS(handler: (req: NextRequest) => Promise<NextResponse>) {
   return async (request: NextRequest): Promise<NextResponse> => {
     const origin = request.headers.get('origin');
-    const allowedOrigins = getAllowedOrigins();
+    const allowedOrigins = getAllowedOrigins;
 
     const response = await handler(request);
 
@@ -71,7 +71,7 @@ export function withSecurity(handler: (req: NextRequest) => Promise<NextResponse
 }
 
 export function handleOptions(request?: NextRequest): NextResponse {
-  const allowedOrigins = getAllowedOrigins();
+  const allowedOrigins = getAllowedOrigins;
   const origin = request?.headers.get('origin');
 
   const headers: Record<string, string> = {
